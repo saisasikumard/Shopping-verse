@@ -1,8 +1,8 @@
 package com.example.shopping_verse.controller;
 
-import com.example.shopping_verse.dto.request.SellerRequestDto;
-import com.example.shopping_verse.dto.response.SellerResponseDto;
-import com.example.shopping_verse.service.SellerService;
+import com.example.shopping_verse.dto.request.OrderEntityRequestDto;
+import com.example.shopping_verse.dto.response.OrderEntityResponseDto;
+import com.example.shopping_verse.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/seller")
-public class SellerController {
+@RequestMapping("/order")
+public class OrderController {
     @Autowired
-    SellerService sellerService;
-    @PostMapping("/add")
-    public ResponseEntity addSeller(@RequestBody SellerRequestDto sellerRequestDto){
-        try {
-            SellerResponseDto sellerResponseDto = sellerService.addSeller(sellerRequestDto);
-            return new ResponseEntity(sellerResponseDto, HttpStatus.ACCEPTED);
+    OrderService orderService;
+
+    @PostMapping("/place")
+    public ResponseEntity placeOrder(@RequestBody OrderEntityRequestDto orderEntityRequestDto){
+        try{
+            OrderEntityResponseDto orderEntityResponseDto=orderService.placeOrder(orderEntityRequestDto);
+            return new ResponseEntity(orderEntityResponseDto, HttpStatus.CREATED);
         }
         catch(Exception e){
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
-
 }

@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @Data //contains getter,setter,reqArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name="item")
+@Builder
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,10 @@ public class Item {
     @ManyToOne
     @JoinColumn
     Product product;
+
+    @ManyToOne
+    @JoinColumn
+    OrderEntity orderEntity;
 
 
 }

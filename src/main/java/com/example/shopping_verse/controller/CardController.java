@@ -1,8 +1,10 @@
 package com.example.shopping_verse.controller;
 
-import com.example.shopping_verse.dto.request.SellerRequestDto;
-import com.example.shopping_verse.dto.response.SellerResponseDto;
-import com.example.shopping_verse.service.SellerService;
+
+import com.example.shopping_verse.dto.request.CardRequestDto;
+import com.example.shopping_verse.dto.response.CardResponseDto;
+import com.example.shopping_verse.service.CardService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/seller")
-public class SellerController {
+@RequestMapping("/card")
+public class CardController {
     @Autowired
-    SellerService sellerService;
+    CardService cardService;
+
     @PostMapping("/add")
-    public ResponseEntity addSeller(@RequestBody SellerRequestDto sellerRequestDto){
-        try {
-            SellerResponseDto sellerResponseDto = sellerService.addSeller(sellerRequestDto);
-            return new ResponseEntity(sellerResponseDto, HttpStatus.ACCEPTED);
+    public ResponseEntity addCard(@RequestBody CardRequestDto cardRequestDto){
+        try{
+            CardResponseDto cardResponseDto=cardService.addCard(cardRequestDto);
+            return new ResponseEntity(cardResponseDto, HttpStatus.CREATED);
         }
         catch(Exception e){
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
-
 }

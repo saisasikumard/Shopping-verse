@@ -4,6 +4,7 @@ import com.example.shopping_verse.dto.request.CustomerRequestDto;
 import com.example.shopping_verse.dto.response.CustomerResponseDto;
 import com.example.shopping_verse.entity.Cart;
 import com.example.shopping_verse.entity.Customer;
+import com.example.shopping_verse.exceptions.CustomerNotFoundException;
 import com.example.shopping_verse.transformer.CustomerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,16 @@ public class CustomerService {
 
 
 
+        return customerResponseDto;
+    }
+
+    public CustomerResponseDto getCustomer(int custID) {
+        Customer customer=customerRepository.getById(custID);
+        if (customer == null) {
+
+            throw new CustomerNotFoundException("Customer Not Found..");
+        }
+        CustomerResponseDto customerResponseDto=CustomerTransformer.customerToCustomerResponseDto(customer);
         return customerResponseDto;
     }
 }
